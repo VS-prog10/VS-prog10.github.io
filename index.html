@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Владислав Сергеевич — Портфолио</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #222;
+        }
+        header p {
+            font-size: 18px;
+            color: #666;
+        }
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #4CAF50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .project {
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .project h3 {
+            color: #222;
+            margin-bottom: 10px;
+        }
+        .project p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #3d8b40;
+        }
+        .contacts {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .contacts a {
+            color: #2196F3;
+            text-decoration: none;
+        }
+        .contacts a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Владислав Сергеевич</h1>
+            <p>Разработчик на Python • Автоматизация • Десктопные приложения</p>
+        </header>
+
+        <div class="section">
+            <h2>Обо мне</h2>
+            <p>Привет! Я разработчик, который создаёт удобные инструменты для работы с данными. Мой первый проект — десктопное приложение для поиска по файлам Excel, Word и TXT.</p>
+            <p style="margin-top: 10px;">Стек: <strong>Python</strong>, tkinter, openpyxl, python-docx, pywin32.</p>
+        </div>
+
+        <div class="section">
+            <h2>Мои проекты</h2>
+
+            <div class="project">
+                <h3>🔍 VS Search Engine</h3>
+                <p>Универсальный поисковик по файлам Excel, Word и TXT. Ищет до 5 значений одновременно. Подсветка найденного, экспорт в XLSX/TXT, тёмная тема.</p>
+                <a class="btn" href="https://github.com/VS-prog10/vs-search-engine" target="_blank">Смотреть на GitHub</a>
+                <a class="btn" style="background: #2196F3;" href="https://github.com/VS-prog10/vs-search-engine/releases" target="_blank">Скачать</a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Контакты</h2>
+            <div class="contacts">
+                <p>📧 Email: <a href="mailto:vs_prog10@list.ru">vs_prog10@list.ru</a></p>
+                <p>💻 GitHub: <a href="https://github.com/VS-prog10" target="_blank">@VS-prog10</a></p>
+            </div>
+        </div>
+
+        <footer>
+            © 2026 Владислав Сергеевич
+        </footer>
+    </div>
+</body>
+</html>
