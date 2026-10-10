@@ -10,17 +10,60 @@
             padding: 0;
             box-sizing: border-box;
         }
+        :root {
+            --bg-body: linear-gradient(135deg, #f4f4f4 0%, #e8eaf6 100%);
+            --bg-section: #ffffff;
+            --bg-card: linear-gradient(135deg, #f8f9fa 0%, #e8eaf6 100%);
+            --text-primary: #333;
+            --text-secondary: #555;
+            --text-muted: #666;
+            --border-color: #f0f0f0;
+            --shadow: 0 2px 15px rgba(0,0,0,0.06);
+            --shadow-hover: 0 6px 25px rgba(0,0,0,0.1);
+            --accent-green: #4CAF50;
+            --accent-blue: #2196F3;
+        }
+        body.dark {
+            --bg-body: linear-gradient(135deg, #1a1a1a 0%, #0f1419 100%);
+            --bg-section: #1e1e1e;
+            --bg-card: linear-gradient(135deg, #252525 0%, #1a2530 100%);
+            --text-primary: #e8e8e8;
+            --text-secondary: #b8b8b8;
+            --text-muted: #999;
+            --border-color: #333;
+            --shadow: 0 2px 15px rgba(0,0,0,0.3);
+            --shadow-hover: 0 6px 25px rgba(0,0,0,0.5);
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-            background: linear-gradient(135deg, #f4f4f4 0%, #e8eaf6 100%);
-            color: #333;
+            background: var(--bg-body);
+            color: var(--text-primary);
             line-height: 1.6;
             min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
         }
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 40px 20px;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-section);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: var(--shadow-hover);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
         }
         header {
             text-align: center;
@@ -41,27 +84,37 @@
             opacity: 0.95;
         }
         .section {
-            background: white;
+            background: var(--bg-section);
             padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            box-shadow: var(--shadow);
             margin-bottom: 20px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
         }
         .section:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-hover);
         }
         .section h2 {
             font-size: 24px;
             margin-bottom: 20px;
-            color: #4CAF50;
-            border-bottom: 3px solid #f0f0f0;
+            color: var(--accent-green);
+            border-bottom: 3px solid var(--border-color);
             padding-bottom: 12px;
             font-weight: 700;
         }
+        .section h3 {
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+        .section h3:first-of-type {
+            margin-top: 0;
+        }
         .section p {
-            color: #555;
+            color: var(--text-secondary);
             margin-bottom: 12px;
         }
         .stats {
@@ -73,7 +126,7 @@
         .stat-card {
             text-align: center;
             padding: 25px 15px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e8eaf6 100%);
+            background: var(--bg-card);
             border-radius: 12px;
             transition: transform 0.3s;
         }
@@ -83,32 +136,33 @@
         .stat-number {
             font-size: 42px;
             font-weight: 700;
-            color: #4CAF50;
+            color: var(--accent-green);
             line-height: 1;
             margin-bottom: 8px;
         }
         .stat-label {
             font-size: 14px;
-            color: #666;
+            color: var(--text-muted);
             font-weight: 500;
         }
         .project {
             padding: 22px;
-            border: 2px solid #f0f0f0;
+            border: 2px solid var(--border-color);
             border-radius: 12px;
             margin-bottom: 15px;
             transition: border-color 0.3s;
         }
         .project:hover {
-            border-color: #4CAF50;
+            border-color: var(--accent-green);
         }
         .project h3 {
-            color: #222;
+            color: var(--text-primary);
             margin-bottom: 12px;
             font-size: 20px;
+            margin-top: 0;
         }
         .project p {
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 18px;
         }
         .btn {
@@ -132,14 +186,22 @@
         .btn-blue:hover {
             background: #1976D2;
         }
+        .skills-category {
+            margin-bottom: 20px;
+        }
+        .skills-category h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         .skills-list, .services-list {
             list-style: none;
             padding: 0;
         }
         .skills-list li, .services-list li {
-            padding: 12px 0;
-            border-bottom: 1px solid #f5f5f5;
-            color: #444;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
             font-size: 15px;
         }
         .skills-list li:last-child, .services-list li:last-child {
@@ -147,20 +209,39 @@
         }
         .education-item {
             padding: 15px 0;
-            border-bottom: 1px solid #f5f5f5;
+            border-bottom: 1px solid var(--border-color);
         }
         .education-item:last-child {
             border-bottom: none;
         }
         .education-item h4 {
-            color: #333;
+            color: var(--text-primary);
             font-size: 16px;
             margin-bottom: 6px;
         }
         .education-item p {
-            color: #666;
+            color: var(--text-muted);
             font-size: 14px;
             margin-bottom: 0;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .tool-item {
+            padding: 12px 15px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: transform 0.3s;
+        }
+        .tool-item:hover {
+            transform: translateY(-3px);
         }
         .contacts {
             display: flex;
@@ -172,7 +253,7 @@
             font-size: 15px;
         }
         .contacts a {
-            color: #2196F3;
+            color: var(--accent-blue);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s;
@@ -208,7 +289,7 @@
         }
         footer {
             text-align: center;
-            color: #999;
+            color: var(--text-muted);
             padding: 30px 20px;
             font-size: 14px;
         }
@@ -218,20 +299,23 @@
             .section { padding: 22px; }
             .section h2 { font-size: 20px; }
             .stat-number { font-size: 32px; }
+            .theme-toggle { top: 10px; right: 10px; width: 42px; height: 42px; font-size: 20px; }
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Переключить тему">🌙</button>
+
     <div class="container">
         <header>
             <h1>Владислав Сергеевич</h1>
-            <p>Разработчик на Python • Автоматизация • Десктопные приложения</p>
+            <p>Python-разработчик • Автоматизация • IT-специалист</p>
         </header>
 
         <div class="section">
             <h2>👋 Обо мне</h2>
-            <p>Привет! Я разработчик, который создаёт удобные инструменты для работы с данными. Мой первый проект — десктопное приложение для поиска по файлам Excel, Word и TXT.</p>
-            <p style="margin-top: 15px;">Владею современными инструментами для работы с данными и автоматизации. Постоянно развиваюсь в программировании и веб-разработке.</p>
+            <p>Привет! Я разработчик и IT-специалист с опытом работы с компьютерными системами. Создаю удобные инструменты для работы с данными, автоматизирую процессы, помогаю с настройкой и обслуживанием ПК.</p>
+            <p style="margin-top: 15px;">Мой первый проект — <strong>VS Search Engine</strong> — десктопное приложение для поиска по файлам Excel, Word и TXT. Постоянно развиваюсь в программировании и веб-разработке.</p>
         </div>
 
         <div class="section">
@@ -282,29 +366,111 @@
 
         <div class="section">
             <h2>🛠️ Навыки</h2>
-            <ul class="skills-list">
-                <li>✅ <strong>Python</strong> — разработка десктопных приложений и автоматизация</li>
-                <li>✅ <strong>Работа с файлами</strong> — Excel, Word, TXT</li>
-                <li>✅ <strong>Интеграция с Office</strong> — COM (pywin32)</li>
-                <li>✅ <strong>Microsoft Word</strong> — на уровне уверенного пользователя</li>
-                <li>✅ <strong>Microsoft Excel</strong> — на уровне уверенного пользователя</li>
-                <li>✅ <strong>Microsoft PowerPoint</strong> — на уровне уверенного пользователя</li>
-                <li>✅ <strong>Базы данных</strong> — работа с данными, SQL-запросы</li>
-                <li>✅ <strong>Автоматизация</strong> — парсинг, обработка данных</li>
-                <li>✅ <strong>Git / GitHub</strong> — контроль версий</li>
-                <li>✅ <strong>HTML / CSS</strong> — вёрстка страниц (изучаю)</li>
-            </ul>
+
+            <div class="skills-category">
+                <h3>🐍 Программирование</h3>
+                <ul class="skills-list">
+                    <li>✅ <strong>Python</strong> — разработка десктопных приложений и автоматизация</li>
+                    <li>✅ <strong>Git / GitHub</strong> — контроль версий</li>
+                    <li>✅ <strong>HTML / CSS</strong> — вёрстка страниц (изучаю)</li>
+                    <li>✅ <strong>Работа с файлами</strong> — Excel, Word, TXT</li>
+                    <li>✅ <strong>Интеграция с Office</strong> — COM (pywin32)</li>
+                    <li>✅ <strong>Автоматизация</strong> — парсинг, обработка данных</li>
+                </ul>
+            </div>
+
+            <div class="skills-category">
+                <h3>💾 Работа с данными</h3>
+                <ul class="skills-list">
+                    <li>✅ <strong>Базы данных</strong> — SQL-запросы, работа с данными</li>
+                    <li>✅ <strong>Microsoft Excel</strong> — уверенный пользователь, формулы, сводные таблицы</li>
+                    <li>✅ <strong>Microsoft Word</strong> — уверенный пользователь, оформление документов</li>
+                    <li>✅ <strong>Microsoft PowerPoint</strong> — уверенный пользователь, презентации</li>
+                </ul>
+            </div>
+
+            <div class="skills-category">
+                <h3>🖥️ Компьютерная грамотность</h3>
+                <ul class="skills-list">
+                    <li>✅ <strong>Windows</strong> — установка, настройка, оптимизация</li>
+                    <li>✅ <strong>BIOS</strong> — настройка, ориентирование в параметрах</li>
+                    <li>✅ <strong>Устранение ошибок ПК</strong> — диагностика и решение проблем</li>
+                    <li>✅ <strong>Установка ПО</strong> — программы, драйверы, обновления</li>
+                    <li>✅ <strong>Резервное копирование</strong> — бэкапы, восстановление данных</li>
+                </ul>
+            </div>
+
+            <div class="skills-category">
+                <h3>🌐 Сети и техника</h3>
+                <ul class="skills-list">
+                    <li>✅ <strong>Настройка проводной сети</strong> — Ethernet, локальные сети</li>
+                    <li>✅ <strong>Настройка беспроводной сети</strong> — Wi-Fi, роутеры</li>
+                    <li>✅ <strong>Радиотехника и электроника</strong> — по образованию (РТСУ, АСУ)</li>
+                    <li>✅ <strong>Сборка и диагностика ПК</strong> — комплектующие, ремонт</li>
+                </ul>
+            </div>
+
+            <div class="skills-category">
+                <h3>🎨 Дополнительно</h3>
+                <ul class="skills-list">
+                    <li>✅ <strong>Adobe Photoshop</strong> — на стадии изучения</li>
+                    <li>✅ <strong>Работа с мобильными устройствами</strong> — Android, iOS</li>
+                </ul>
+            </div>
         </div>
 
         <div class="section">
-            <h2>💼 Услуги</h2>
-            <ul class="services-list">
-                <li>🐍 <strong>Автоматизация на Python</strong> — скрипты, парсеры, обработка данных</li>
-                <li>💻 <strong>Десктопные приложения</strong> — под вашу задачу</li>
-                <li>📊 <strong>Работа с Excel/Word</strong> — макросы, обработка, конвертация</li>
-                <li>🗄️ <strong>Работа с базами данных</strong> — запросы, обработка, отчёты</li>
-                <li>🌐 <strong>Разработка сайтов</strong> — лендинги, визитки (изучаю)</li>
-            </ul>
+            <h2>💼 Что я могу сделать</h2>
+
+            <div class="skills-category">
+                <h3>🐍 Программирование и автоматизация</h3>
+                <ul class="services-list">
+                    <li>🐍 <strong>Автоматизация на Python</strong> — скрипты, парсеры, обработка данных</li>
+                    <li>💻 <strong>Десктопные приложения</strong> — под вашу задачу</li>
+                    <li>📊 <strong>Работа с Excel/Word</strong> — макросы, обработка, конвертация</li>
+                    <li>🗄️ <strong>Работа с базами данных</strong> — запросы, обработка, отчёты</li>
+                </ul>
+            </div>
+
+            <div class="skills-category">
+                <h3>🖥️ Компьютерная помощь</h3>
+                <ul class="services-list">
+                    <li>💿 <strong>Установка Windows</strong> — с драйверами и настройкой</li>
+                    <li>⚙️ <strong>Настройка и оптимизация ПК</strong> — ускорение работы, чистка</li>
+                    <li>🔧 <strong>Устранение ошибок ПК</strong> — диагностика и решение проблем</li>
+                    <li>🔌 <strong>Настройка проводной сети</strong> — подключение, диагностика</li>
+                    <li>📶 <strong>Настройка Wi-Fi</strong> — роутеры, беспроводная сеть</li>
+                    <li>📀 <strong>Установка программ</strong> — Office, драйверы, утилиты</li>
+                    <li>💾 <strong>Резервное копирование</strong> — настройка бэкапов</li>
+                </ul>
+            </div>
+
+            <div class="skills-category">
+                <h3>📚 Консультации</h3>
+                <ul class="services-list">
+                    <li>📖 <strong>Помощь с Word/Excel</strong> — формулы, оформление, таблицы</li>
+                    <li>🎓 <strong>Консультации по ПК</strong> — что купить, как ускорить</li>
+                    <li>🌐 <strong>Разработка сайтов</strong> — лендинги, визитки (изучаю)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🧰 Инструменты</h2>
+            <div class="tools-grid">
+                <div class="tool-item">Windows 7/10/11</div>
+                <div class="tool-item">Python</div>
+                <div class="tool-item">Microsoft Office</div>
+                <div class="tool-item">Excel</div>
+                <div class="tool-item">Word</div>
+                <div class="tool-item">PowerPoint</div>
+                <div class="tool-item">Git / GitHub</div>
+                <div class="tool-item">VS Code</div>
+                <div class="tool-item">BIOS</div>
+                <div class="tool-item">Firefox</div>
+                <div class="tool-item">Photoshop</div>
+                <div class="tool-item">SQL</div>
+            </div>
         </div>
 
         <div class="section">
@@ -317,7 +483,7 @@
 
         <div class="section cta-section">
             <h2>📩 Связаться со мной</h2>
-            <p>Готов обсудить ваш проект. Напишите мне!</p>
+            <p>Готов обсудить ваш проект или задачу. Напишите мне!</p>
             <a class="btn" href="mailto:vs_prog10@list.ru">Написать на почту</a>
         </div>
 
@@ -325,5 +491,27 @@
             © 2026 Владислав Сергеевич. Все права защищены.
         </footer>
     </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            const btn = document.querySelector('.theme-toggle');
+            if (document.body.classList.contains('dark')) {
+                btn.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                btn.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        
+        // Восстановить тему при загрузке
+        window.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark');
+                document.querySelector('.theme-toggle').textContent = '☀️';
+            }
+        });
+    </script>
 </body>
 </html>
