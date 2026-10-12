@@ -121,6 +121,40 @@
             font-size: 14px;
             font-weight: 600;
         }
+        .header-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .header-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: white;
+            color: #1a237e;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .header-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            background: #f0f0f0;
+        }
+        .header-btn.secondary {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.4);
+            backdrop-filter: blur(10px);
+        }
+        .header-btn.secondary:hover {
+            background: rgba(255,255,255,0.25);
+        }
 
         /* ============= SECTIONS (АККОРДЕОН) ============= */
         .section {
@@ -448,6 +482,7 @@
         @media (max-width: 600px) {
             header h1 { font-size: 30px; }
             header p { font-size: 15px; }
+            .header-btn { padding: 12px 20px; font-size: 14px; }
             .section-header { padding: 18px 22px; }
             .section-header h2 { font-size: 18px; }
             .section-body { padding: 0 22px; }
@@ -470,6 +505,10 @@
                 <span class="header-tag">📡 Радиотехника</span>
                 <span class="header-tag">🤖 Telegram-боты</span>
                 <span class="header-tag">⚙️ Автоматизация</span>
+            </div>
+            <div class="header-buttons">
+                <a class="header-btn" href="https://t.me/VS_GdeToplivo_bot" target="_blank">🤖 Открыть бота в Telegram</a>
+                <a class="header-btn secondary" href="https://github.com/VS-prog10" target="_blank">💻 GitHub</a>
             </div>
         </header>
 
@@ -564,6 +603,19 @@
             <div class="section-body">
 
                 <div class="project">
+                    <h3>⛽ VS Где Топливо — Telegram-бот</h3>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">pyTelegramBotAPI</span>
+                        <span class="project-tag">SQLite</span>
+                        <span class="project-tag">Amvera</span>
+                    </div>
+                    <p>Краудсорсинговый бот для поиска заправок и цен на топливо. Пользователи сами обновляют данные — бот показывает, где есть бензин и по какой цене. GPS-поиск ближайших АЗС, фильтр по городам и марке топлива, избранные заправки, карта и маршрут, статистика и рейтинг пользователей.</p>
+                    <a class="btn btn-blue" href="https://t.me/VS_GdeToplivo_bot" target="_blank">🤖 Открыть бота в Telegram</a>
+                    <a class="btn btn-orange" href="https://github.com/VS-prog10/vs-gde-toplivo" target="_blank">Смотреть на GitHub</a>
+                </div>
+
+                <div class="project">
                     <h3>🐍 VS Search Engine</h3>
                     <div class="project-tags">
                         <span class="project-tag">Python</span>
@@ -574,18 +626,6 @@
                     <p>Универсальный поисковик по файлам Excel, Word и TXT. Ищет до 5 значений одновременно, подсвечивает найденное, экспортирует отчёты в XLSX/TXT, поддерживает тёмную тему и закрепление файлов. Работает на Windows 7/10/11.</p>
                     <a class="btn" href="https://github.com/VS-prog10/vs-search-engine" target="_blank">Смотреть на GitHub</a>
                     <a class="btn btn-blue" href="https://github.com/VS-prog10/vs-search-engine/releases" target="_blank">Скачать</a>
-                </div>
-
-                <div class="project">
-                    <h3>⛽ VS Где Топливо — Telegram-бот</h3>
-                    <div class="project-tags">
-                        <span class="project-tag">Python</span>
-                        <span class="project-tag">pyTelegramBotAPI</span>
-                        <span class="project-tag">SQLite</span>
-                        <span class="project-tag">Amvera</span>
-                    </div>
-                    <p>Краудсорсинговый бот для поиска заправок и цен на топливо. Пользователи сами обновляют данные — бот показывает, где есть бензин и по какой цене. GPS-поиск ближайших АЗС, фильтр по городам и марке топлива, избранные заправки, карта и маршрут, статистика и рейтинг пользователей.</p>
-                    <a class="btn btn-orange" href="https://github.com/VS-prog10/vs-gde-toplivo" target="_blank">Смотреть на GitHub</a>
                 </div>
 
                 <div class="project">
@@ -753,6 +793,7 @@
                 <div class="contacts">
                     <p>📧 Email: <a href="mailto:vs_prog10@list.ru">vs_prog10@list.ru</a></p>
                     <p>💻 GitHub: <a href="https://github.com/VS-prog10" target="_blank">@VS-prog10</a></p>
+                    <p>🤖 Telegram-бот: <a href="https://t.me/VS_GdeToplivo_bot" target="_blank">@VS_GdeToplivo_bot</a></p>
                 </div>
             </div>
         </div>
@@ -766,6 +807,7 @@
             <div class="section-body">
                 <p>Готов обсудить ваш проект или задачу — от программирования до инженерных расчётов. Напишите мне!</p>
                 <a class="btn" href="mailto:vs_prog10@list.ru">Написать на почту</a>
+                <a class="btn" href="https://t.me/VS_GdeToplivo_bot" target="_blank" style="background: #2196F3;">🤖 Открыть бота</a>
             </div>
         </div>
 
