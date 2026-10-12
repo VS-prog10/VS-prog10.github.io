@@ -122,26 +122,57 @@
             font-weight: 600;
         }
 
-        /* ============= SECTIONS ============= */
+        /* ============= SECTIONS (АККОРДЕОН) ============= */
         .section {
             background: var(--bg-section);
-            padding: 35px;
             border-radius: 16px;
             box-shadow: var(--shadow);
             margin-bottom: 22px;
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            transition: box-shadow 0.3s, background 0.3s;
+            overflow: hidden;
         }
         .section:hover {
-            transform: translateY(-2px);
             box-shadow: var(--shadow-hover);
         }
-        .section h2 {
-            font-size: 26px;
-            margin-bottom: 22px;
+        .section-header {
+            padding: 25px 35px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.3s;
+        }
+        .section-header:hover {
+            background: var(--bg-card);
+        }
+        .section-header h2 {
+            font-size: 24px;
+            margin: 0;
             color: var(--accent-green);
-            border-bottom: 3px solid var(--border-color);
-            padding-bottom: 12px;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-toggle-icon {
+            font-size: 18px;
+            color: var(--text-muted);
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+        .section.open .section-toggle-icon {
+            transform: rotate(180deg);
+        }
+        .section-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+            padding: 0 35px;
+        }
+        .section.open .section-body {
+            max-height: 10000px;
+            padding: 0 35px 35px 35px;
         }
         .section h3 {
             font-size: 18px;
@@ -257,6 +288,12 @@
         .btn-purple:hover {
             background: #5E35B1;
         }
+        .btn-orange {
+            background: #FF9800;
+        }
+        .btn-orange:hover {
+            background: #e68a00;
+        }
 
         /* ============= SKILLS / SERVICES ============= */
         .skills-category {
@@ -325,17 +362,17 @@
         }
 
         /* ============= ENGINEERING BLOCK ============= */
-        .engineering-block {
+        .engineering-block .section-header {
             background: linear-gradient(135deg, #E8EAF6 0%, #C5CAE9 100%);
             border-left: 5px solid #1A237E;
         }
-        body.dark .engineering-block {
+        body.dark .engineering-block .section-header {
             background: linear-gradient(135deg, #1a1f3a 0%, #0f1430 100%);
         }
-        .engineering-block h2 {
+        .engineering-block .section-header h2 {
             color: #1A237E;
         }
-        body.dark .engineering-block h2 {
+        body.dark .engineering-block .section-header h2 {
             color: #7986CB;
         }
         .engineering-block p {
@@ -372,9 +409,17 @@
             background: linear-gradient(135deg, #4CAF50 0%, #2196F3 100%);
             color: white;
         }
-        .cta-section h2 {
+        .cta-section .section-header {
+            background: transparent;
+        }
+        .cta-section .section-header:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .cta-section .section-header h2 {
             color: white;
-            border-bottom: 3px solid rgba(255,255,255,0.3);
+        }
+        .cta-section .section-toggle-icon {
+            color: white;
         }
         .cta-section p {
             color: rgba(255,255,255,0.95);
@@ -403,8 +448,10 @@
         @media (max-width: 600px) {
             header h1 { font-size: 30px; }
             header p { font-size: 15px; }
-            .section { padding: 22px; }
-            .section h2 { font-size: 20px; }
+            .section-header { padding: 18px 22px; }
+            .section-header h2 { font-size: 18px; }
+            .section-body { padding: 0 22px; }
+            .section.open .section-body { padding: 0 22px 22px 22px; }
             .stat-number { font-size: 34px; }
             .theme-toggle { top: 10px; right: 10px; width: 42px; height: 42px; font-size: 20px; }
         }
@@ -421,221 +468,305 @@
                 <span class="header-tag">🐍 Python</span>
                 <span class="header-tag">📊 MATLAB</span>
                 <span class="header-tag">📡 Радиотехника</span>
+                <span class="header-tag">🤖 Telegram-боты</span>
                 <span class="header-tag">⚙️ Автоматизация</span>
             </div>
         </header>
 
-        <div class="section">
-            <h2>👋 Обо мне</h2>
-            <p>Привет! Я инженер-разработчик с опытом в <strong>радиотехнике</strong>, <strong>математическом моделировании</strong> и <strong>программировании</strong>. Работаю с <strong>Python</strong> и <strong>MATLAB</strong>, создаю инструменты для автоматизации и анализа данных, моделирую физические процессы и оптимизирую параметры технических систем.</p>
-            <p style="margin-top: 15px;">Объединяю инженерное образование с практическими навыками программирования — это позволяет решать задачи на стыке физики, математики и IT.</p>
+        <!-- ОБО МНЕ -->
+        <div class="section open" id="about">
+            <div class="section-header" onclick="toggleSection('about')">
+                <h2>👋 Обо мне</h2>
+                <span class="section-toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Привет! Я инженер-разработчик с опытом в <strong>радиотехнике</strong>, <strong>математическом моделировании</strong> и <strong>программировании</strong>. Работаю с <strong>Python</strong> и <strong>MATLAB</strong>, создаю инструменты для автоматизации и анализа данных, моделирую физические процессы и оптимизирую параметры технических систем.</p>
+                <p style="margin-top: 15px;">Объединяю инженерное образование с практическими навыками программирования — это позволяет решать задачи на стыке физики, математики и IT.</p>
+                <p style="margin-top: 15px;">Разрабатываю <strong>Telegram-ботов</strong> на Python — от идеи до развёртывания в облаке (<strong>Amvera</strong>). Умею работать с базами данных (<strong>SQLite</strong>), внешними <strong>API</strong> и автоматизировать рутинные задачи.</p>
+            </div>
         </div>
 
-        <div class="section">
-            <h2>📊 Опыт и знания</h2>
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-number">2</div>
-                    <div class="stat-label">года<br>ИМ-группа</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">5</div>
-                    <div class="stat-label">лет<br>в вузе (РТСУ, АСУ)</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">1</div>
-                    <div class="stat-label">год<br>на производстве</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">8</div>
-                    <div class="stat-label">лет<br>общего опыта</div>
+        <!-- ОПЫТ -->
+        <div class="section" id="experience">
+            <div class="section-header" onclick="toggleSection('experience')">
+                <h2>📊 Опыт и знания</h2>
+                <span class="section-toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">года<br>ИМ-группа</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">лет<br>в вузе (РТСУ, АСУ)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">год<br>на производстве</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">лет<br>общего опыта</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="section">
-            <h2>🎓 Образование</h2>
-            <div class="education-item">
-                <h4>Информационно-математическая группа (школа)</h4>
-                <p>2 года углублённого изучения информатики и математики</p>
+        <!-- ОБРАЗОВАНИЕ -->
+        <div class="section" id="education">
+            <div class="section-header" onclick="toggleSection('education')">
+                <h2>🎓 Образование</h2>
+                <span class="section-toggle-icon">▼</span>
             </div>
-            <div class="education-item">
-                <h4>Высшее образование — Радиотехнические системы управления (РТСУ)</h4>
-                <p>Факультет: Автоматизированные системы управления (АСУ)</p>
-                <p>5 лет обучения • Инженерная специальность</p>
-            </div>
-        </div>
-
-        <div class="section engineering-block">
-            <h2>📡 Инженерия и радиотехника</h2>
-            <p>Моя инженерная специализация — <strong>радиотехнические системы управления</strong> и <strong>автоматизированные системы</strong>. Работаю с математическими моделями физических процессов, численными методами и оптимизацией технических параметров.</p>
-
-            <h3>🛠️ Инженерные компетенции</h3>
-            <ul class="skills-list">
-                <li>📡 <strong>Радиотехника и антенны</strong> — теория антенн, распространение радиоволн, АФУ</li>
-                <li>📊 <strong>MATLAB / Simulink</strong> — моделирование систем, расчёты, визуализация</li>
-                <li>🔢 <strong>Метод моментов (MoM)</strong> — численный метод для расчёта антенн</li>
-                <li>⚙️ <strong>Оптимизация</strong> — перебор параметров, оптимизация геометрии</li>
-                <li>📶 <strong>Обработка сигналов</strong> — анализ, фильтрация, БПФ</li>
-                <li>🌊 <strong>Распространение радиоволн</strong> — УКВ, тропосферные волны, затухание</li>
-                <li>🔬 <strong>Численные методы</strong> — квадратуры Гаусса, решение СЛАУ</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>🔍 Мои проекты</h2>
-
-            <div class="project">
-                <h3>🐍 VS Search Engine</h3>
-                <div class="project-tags">
-                    <span class="project-tag">Python</span>
-                    <span class="project-tag">tkinter</span>
-                    <span class="project-tag">openpyxl</span>
-                    <span class="project-tag">pywin32</span>
+            <div class="section-body">
+                <div class="education-item">
+                    <h4>Информационно-математическая группа (школа)</h4>
+                    <p>2 года углублённого изучения информатики и математики</p>
                 </div>
-                <p>Универсальный поисковик по файлам Excel, Word и TXT. Ищет до 5 значений одновременно, подсвечивает найденное, экспортирует отчёты в XLSX/TXT, поддерживает тёмную тему и закрепление файлов. Работает на Windows 7/10/11.</p>
-                <a class="btn" href="https://github.com/VS-prog10/vs-search-engine" target="_blank">Смотреть на GitHub</a>
-                <a class="btn btn-blue" href="https://github.com/VS-prog10/vs-search-engine/releases" target="_blank">Скачать</a>
-            </div>
-
-            <div class="project">
-                <h3>📡 Broadband Antenna Optimization (MATLAB)</h3>
-                <div class="project-tags">
-                    <span class="project-tag">MATLAB</span>
-                    <span class="project-tag">MoM</span>
-                    <span class="project-tag">Численные методы</span>
-                    <span class="project-tag">Оптимизация</span>
+                <div class="education-item">
+                    <h4>Высшее образование — Радиотехнические системы управления (РТСУ)</h4>
+                    <p>Факультет: Автоматизированные системы управления (АСУ)</p>
+                    <p>5 лет обучения • Инженерная специальность</p>
                 </div>
-                <p>Математическое моделирование и оптимизация широкополосной вибраторной антенны методом моментов (метод Ричмонда). Реализован расчёт распределения тока, построены диаграммы направленности (E-plane, H-plane, 3D), проведена оптимизация геометрии (усиление 10.99 дБ) и смоделирован радиоканал УКВ-диапазона.</p>
-                <a class="btn btn-purple" href="https://github.com/VS-prog10/broadband-antenna-optimization" target="_blank">Смотреть на GitHub</a>
             </div>
         </div>
 
-        <div class="section">
-            <h2>🛠️ Навыки</h2>
+        <!-- ИНЖЕНЕРИЯ -->
+        <div class="section engineering-block" id="engineering">
+            <div class="section-header" onclick="toggleSection('engineering')">
+                <h2>📡 Инженерия и радиотехника</h2>
+                <span class="section-toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Моя инженерная специализация — <strong>радиотехнические системы управления</strong> и <strong>автоматизированные системы</strong>. Работаю с математическими моделями физических процессов, численными методами и оптимизацией технических параметров.</p>
 
-            <div class="skills-category">
-                <h3>🐍 Программирование</h3>
+                <h3>🛠️ Инженерные компетенции</h3>
                 <ul class="skills-list">
-                    <li>✅ <strong>Python</strong> — разработка десктопных приложений, автоматизация</li>
-                    <li>✅ <strong>MATLAB</strong> — инженерные расчёты, моделирование</li>
-                    <li>✅ <strong>Git / GitHub</strong> — контроль версий, публикация проектов</li>
-                    <li>✅ <strong>HTML / CSS</strong> — вёрстка страниц (изучаю)</li>
-                    <li>✅ <strong>Интеграция с Office</strong> — COM (pywin32)</li>
-                    <li>✅ <strong>Парсинг и автоматизация</strong> — обработка данных</li>
-                </ul>
-            </div>
-
-            <div class="skills-category">
-                <h3>💾 Работа с данными</h3>
-                <ul class="skills-list">
-                    <li>✅ <strong>Базы данных</strong> — SQL-запросы, работа с данными</li>
-                    <li>✅ <strong>Microsoft Excel</strong> — уверенный пользователь, формулы, сводные таблицы</li>
-                    <li>✅ <strong>Microsoft Word</strong> — уверенный пользователь, оформление документов</li>
-                    <li>✅ <strong>Microsoft PowerPoint</strong> — уверенный пользователь, презентации</li>
-                </ul>
-            </div>
-
-            <div class="skills-category">
-                <h3>📡 Инженерия</h3>
-                <ul class="skills-list">
-                    <li>✅ <strong>Радиотехника</strong> — по образованию (РТСУ, АСУ)</li>
-                    <li>✅ <strong>Антенны и АФУ</strong> — теория, расчёт, моделирование</li>
-                    <li>✅ <strong>Распространение радиоволн</strong> — УКВ, затухание, помехи</li>
-                    <li>✅ <strong>Обработка сигналов</strong> — анализ, фильтрация</li>
-                    <li>✅ <strong>Численные методы</strong> — MoM, квадратуры, СЛАУ</li>
-                </ul>
-            </div>
-
-            <div class="skills-category">
-                <h3>🖥️ Компьютерная грамотность</h3>
-                <ul class="skills-list">
-                    <li>✅ <strong>Windows</strong> — установка, настройка, оптимизация</li>
-                    <li>✅ <strong>BIOS</strong> — настройка, ориентирование в параметрах</li>
-                    <li>✅ <strong>Устранение ошибок ПК</strong> — диагностика и решение проблем</li>
-                    <li>✅ <strong>Установка ПО</strong> — программы, драйверы, обновления</li>
-                    <li>✅ <strong>Резервное копирование</strong> — бэкапы, восстановление данных</li>
-                </ul>
-            </div>
-
-            <div class="skills-category">
-                <h3>🌐 Сети и техника</h3>
-                <ul class="skills-list">
-                    <li>✅ <strong>Настройка проводной сети</strong> — Ethernet, локальные сети</li>
-                    <li>✅ <strong>Настройка беспроводной сети</strong> — Wi-Fi, роутеры</li>
-                    <li>✅ <strong>Сборка и диагностика ПК</strong> — комплектующие, ремонт</li>
+                    <li>📡 <strong>Радиотехника и антенны</strong> — теория антенн, распространение радиоволн, АФУ</li>
+                    <li>📊 <strong>MATLAB / Simulink</strong> — моделирование систем, расчёты, визуализация</li>
+                    <li>🔢 <strong>Метод моментов (MoM)</strong> — численный метод для расчёта антенн</li>
+                    <li>⚙️ <strong>Оптимизация</strong> — перебор параметров, оптимизация геометрии</li>
+                    <li>📶 <strong>Обработка сигналов</strong> — анализ, фильтрация, БПФ</li>
+                    <li>🌊 <strong>Распространение радиоволн</strong> — УКВ, тропосферные волны, затухание</li>
+                    <li>🔬 <strong>Численные методы</strong> — квадратуры Гаусса, решение СЛАУ</li>
                 </ul>
             </div>
         </div>
 
-        <div class="section">
-            <h2>💼 Услуги</h2>
-
-            <div class="skills-category">
-                <h3>🐍 Программирование и автоматизация</h3>
-                <ul class="services-list">
-                    <li>🐍 <strong>Разработка на Python</strong> — десктопные приложения, скрипты</li>
-                    <li>📊 <strong>Разработка на MATLAB</strong> — инженерные расчёты, моделирование</li>
-                    <li>📈 <strong>Работа с Excel/Word</strong> — макросы, обработка, конвертация</li>
-                    <li>🗄️ <strong>Работа с базами данных</strong> — запросы, обработка, отчёты</li>
-                    <li>🤖 <strong>Автоматизация</strong> — парсеры, скрипты, обработка данных</li>
-                </ul>
+        <!-- ПРОЕКТЫ -->
+        <div class="section" id="projects">
+            <div class="section-header" onclick="toggleSection('projects')">
+                <h2>🔍 Мои проекты</h2>
+                <span class="section-toggle-icon">▼</span>
             </div>
+            <div class="section-body">
 
-            <div class="skills-category">
-                <h3>📡 Инженерные услуги</h3>
-                <ul class="services-list">
-                    <li>📡 <strong>Моделирование антенн в MATLAB</strong> — расчёт, визуализация</li>
-                    <li>⚙️ <strong>Оптимизация параметров</strong> — поиск лучших решений</li>
-                    <li>📶 <strong>Моделирование радиоканалов</strong> — расчёт сигнал/шум, дальности</li>
-                    <li>🔬 <strong>Консультации по радиотехнике</strong> — антенны, распространение волн</li>
-                </ul>
-            </div>
+                <div class="project">
+                    <h3>🐍 VS Search Engine</h3>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">tkinter</span>
+                        <span class="project-tag">openpyxl</span>
+                        <span class="project-tag">pywin32</span>
+                    </div>
+                    <p>Универсальный поисковик по файлам Excel, Word и TXT. Ищет до 5 значений одновременно, подсвечивает найденное, экспортирует отчёты в XLSX/TXT, поддерживает тёмную тему и закрепление файлов. Работает на Windows 7/10/11.</p>
+                    <a class="btn" href="https://github.com/VS-prog10/vs-search-engine" target="_blank">Смотреть на GitHub</a>
+                    <a class="btn btn-blue" href="https://github.com/VS-prog10/vs-search-engine/releases" target="_blank">Скачать</a>
+                </div>
 
-            <div class="skills-category">
-                <h3>🖥️ Компьютерная помощь</h3>
-                <ul class="services-list">
-                    <li>💿 <strong>Установка Windows</strong> — с драйверами и настройкой</li>
-                    <li>⚙️ <strong>Настройка и оптимизация ПК</strong> — ускорение, чистка</li>
-                    <li>🔧 <strong>Устранение ошибок ПК</strong> — диагностика</li>
-                    <li>🔌 <strong>Настройка проводной сети</strong> — Ethernet</li>
-                    <li>📶 <strong>Настройка Wi-Fi</strong> — роутеры, беспроводная сеть</li>
-                    <li>📀 <strong>Установка программ</strong> — Office, драйверы</li>
-                    <li>💾 <strong>Резервное копирование</strong> — настройка бэкапов</li>
-                </ul>
-            </div>
-        </div>
+                <div class="project">
+                    <h3>⛽ VS Где Топливо — Telegram-бот</h3>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">pyTelegramBotAPI</span>
+                        <span class="project-tag">SQLite</span>
+                        <span class="project-tag">Amvera</span>
+                    </div>
+                    <p>Краудсорсинговый бот для поиска заправок и цен на топливо. Пользователи сами обновляют данные — бот показывает, где есть бензин и по какой цене. GPS-поиск ближайших АЗС, фильтр по городам и марке топлива, избранные заправки, карта и маршрут, статистика и рейтинг пользователей.</p>
+                    <a class="btn btn-orange" href="https://github.com/VS-prog10/vs-gde-toplivo" target="_blank">Смотреть на GitHub</a>
+                </div>
 
-        <div class="section">
-            <h2>🧰 Инструменты</h2>
-            <div class="tools-grid">
-                <div class="tool-item">Python</div>
-                <div class="tool-item">MATLAB</div>
-                <div class="tool-item">Simulink</div>
-                <div class="tool-item">Git / GitHub</div>
-                <div class="tool-item">Windows 7/10/11</div>
-                <div class="tool-item">Microsoft Office</div>
-                <div class="tool-item">Excel</div>
-                <div class="tool-item">Word</div>
-                <div class="tool-item">PowerPoint</div>
-                <div class="tool-item">SQL</div>
-                <div class="tool-item">VS Code</div>
-                <div class="tool-item">BIOS</div>
+                <div class="project">
+                    <h3>📡 Broadband Antenna Optimization (MATLAB)</h3>
+                    <div class="project-tags">
+                        <span class="project-tag">MATLAB</span>
+                        <span class="project-tag">MoM</span>
+                        <span class="project-tag">Численные методы</span>
+                        <span class="project-tag">Оптимизация</span>
+                    </div>
+                    <p>Математическое моделирование и оптимизация широкополосной вибраторной антенны методом моментов (метод Ричмонда). Реализован расчёт распределения тока, построены диаграммы направленности (E-plane, H-plane, 3D), проведена оптимизация геометрии (усиление 10.99 дБ) и смоделирован радиоканал УКВ-диапазона.</p>
+                    <a class="btn btn-purple" href="https://github.com/VS-prog10/broadband-antenna-optimization" target="_blank">Смотреть на GitHub</a>
+                </div>
+
             </div>
         </div>
 
-        <div class="section">
-            <h2>📞 Контакты</h2>
-            <div class="contacts">
-                <p>📧 Email: <a href="mailto:vs_prog10@list.ru">vs_prog10@list.ru</a></p>
-                <p>💻 GitHub: <a href="https://github.com/VS-prog10" target="_blank">@VS-prog10</a></p>
+        <!-- НАВЫКИ -->
+        <div class="section" id="skills">
+            <div class="section-header" onclick="toggleSection('skills')">
+                <h2>🛠️ Навыки</h2>
+                <span class="section-toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+
+                <div class="skills-category">
+                    <h3>🐍 Программирование</h3>
+                    <ul class="skills-list">
+                        <li>✅ <strong>Python</strong> — разработка десктопных приложений, автоматизация</li>
+                        <li>✅ <strong>Telegram-боты</strong> — pyTelegramBotAPI, aiogram</li>
+                        <li>✅ <strong>MATLAB</strong> — инженерные расчёты, моделирование</li>
+                        <li>✅ <strong>Деплой в облаке</strong> — Amvera, Git, GitHub Pages</li>
+                        <li>✅ <strong>Git / GitHub</strong> — контроль версий, публикация проектов</li>
+                        <li>✅ <strong>HTML / CSS</strong> — вёрстка страниц (изучаю)</li>
+                        <li>✅ <strong>Интеграция с Office</strong> — COM (pywin32)</li>
+                        <li>✅ <strong>Парсинг и автоматизация</strong> — обработка данных</li>
+                    </ul>
+                </div>
+
+                <div class="skills-category">
+                    <h3>💾 Работа с данными</h3>
+                    <ul class="skills-list">
+                        <li>✅ <strong>Базы данных</strong> — SQLite, SQL-запросы, работа с данными</li>
+                        <li>✅ <strong>Работа с API</strong> — интеграция с внешними сервисами</li>
+                        <li>✅ <strong>Microsoft Excel</strong> — уверенный пользователь, формулы, сводные таблицы</li>
+                        <li>✅ <strong>Microsoft Word</strong> — уверенный пользователь, оформление документов</li>
+                        <li>✅ <strong>Microsoft PowerPoint</strong> — уверенный пользователь, презентации</li>
+                    </ul>
+                </div>
+
+                <div class="skills-category">
+                    <h3>📡 Инженерия</h3>
+                    <ul class="skills-list">
+                        <li>✅ <strong>Радиотехника</strong> — по образованию (РТСУ, АСУ)</li>
+                        <li>✅ <strong>Антенны и АФУ</strong> — теория, расчёт, моделирование</li>
+                        <li>✅ <strong>Распространение радиоволн</strong> — УКВ, затухание, помехи</li>
+                        <li>✅ <strong>Обработка сигналов</strong> — анализ, фильтрация</li>
+                        <li>✅ <strong>Численные методы</strong> — MoM, квадратуры, СЛАУ</li>
+                    </ul>
+                </div>
+
+                <div class="skills-category">
+                    <h3>🖥️ Компьютерная грамотность</h3>
+                    <ul class="skills-list">
+                        <li>✅ <strong>Windows</strong> — установка, настройка, оптимизация</li>
+                        <li>✅ <strong>BIOS</strong> — настройка, ориентирование в параметрах</li>
+                        <li>✅ <strong>Устранение ошибок ПК</strong> — диагностика и решение проблем</li>
+                        <li>✅ <strong>Установка ПО</strong> — программы, драйверы, обновления</li>
+                        <li>✅ <strong>Резервное копирование</strong> — бэкапы, восстановление данных</li>
+                    </ul>
+                </div>
+
+                <div class="skills-category">
+                    <h3>🌐 Сети и техника</h3>
+                    <ul class="skills-list">
+                        <li>✅ <strong>Настройка проводной сети</strong> — Ethernet, локальные сети</li>
+                        <li>✅ <strong>Настройка беспроводной сети</strong> — Wi-Fi, роутеры</li>
+                        <li>✅ <strong>Сборка и диагностика ПК</strong> — комплектующие, ремонт</li>
+                    </ul>
+                </div>
+
             </div>
         </div>
 
-        <div class="section cta-section">
-            <h2>📩 Связаться со мной</h2>
-            <p>Готов обсудить ваш проект или задачу — от программирования до инженерных расчётов. Напишите мне!</p>
-            <a class="btn" href="mailto:vs_prog10@list.ru">Написать на почту</a>
+        <!-- УСЛУГИ -->
+        <div class="section" id="services">
+            <div class="section-header" onclick="toggleSection('services')">
+                <h2>💼 Услуги</h2>
+                <span class="section-toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+
+                <div class="skills-category">
+                    <h3>🐍 Программирование и автоматизация</h3>
+                    <ul class="services-list">
+                        <li>🐍 <strong>Разработка на Python</strong> — десктопные приложения, скрипты</li>
+                        <li>🤖 <strong>Разработка Telegram-ботов</strong> — от идеи до запуска в облаке</li>
+                        <li>📊 <strong>Разработка на MATLAB</strong> — инженерные расчёты, моделирование</li>
+                        <li>📈 <strong>Работа с Excel/Word</strong> — макросы, обработка, конвертация</li>
+                        <li>🗄️ <strong>Работа с базами данных</strong> — SQLite, запросы, обработка, отчёты</li>
+                        <li>🤖 <strong>Автоматизация</strong> — парсеры, скрипты, обработка данных</li>
+                    </ul>
+                </div>
+
+                <div class="skills-category">
+                    <h3>📡 Инженерные услуги</h3>
+                    <ul class="services-list">
+                        <li>📡 <strong>Моделирование антенн в MATLAB</strong> — расчёт, визуализация</li>
+                        <li>⚙️ <strong>Оптимизация параметров</strong> — поиск лучших решений</li>
+                        <li>📶 <strong>Моделирование радиоканалов</strong> — расчёт сигнал/шум, дальности</li>
+                        <li>🔬 <strong>Консультации по радиотехнике</strong> — антенны, распространение волн</li>
+                    </ul>
+                </div>
+
+                <div class="skills-category">
+                    <h3>🖥️ Компьютерная помощь</h3>
+                    <ul class="services-list">
+                        <li>💿 <strong>Установка Windows</strong> — с драйверами и настройкой</li>
+                        <li>⚙️ <strong>Настройка и оптимизация ПК</strong> — ускорение, чистка</li>
+                        <li>🔧 <strong>Устранение ошибок ПК</strong> — диагностика</li>
+                        <li>🔌 <strong>Настройка проводной сети</strong> — Ethernet</li>
+                        <li>📶 <strong>Настройка Wi-Fi</strong> — роутеры, беспроводная сеть</li>
+                        <li>📀 <strong>Установка программ</strong> — Office, драйверы</li>
+                        <li>💾 <strong>Резервное копирование</strong> — настройка бэкапов</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ИНСТРУМЕНТЫ -->
+        <div class="section" id="tools">
+            <div class="section-header" onclick="toggleSection('tools')">
+                <h2>🧰 Инструменты</h2>
+                <span class="section-toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="tools-grid">
+                    <div class="tool-item">Python</div>
+                    <div class="tool-item">MATLAB</div>
+                    <div class="tool-item">Simulink</div>
+                    <div class="tool-item">pyTelegramBotAPI</div>
+                    <div class="tool-item">SQLite</div>
+                    <div class="tool-item">Amvera</div>
+                    <div class="tool-item">Git / GitHub</div>
+                    <div class="tool-item">Windows 7/10/11</div>
+                    <div class="tool-item">Microsoft Office</div>
+                    <div class="tool-item">Excel</div>
+                    <div class="tool-item">Word</div>
+                    <div class="tool-item">PowerPoint</div>
+                    <div class="tool-item">SQL</div>
+                    <div class="tool-item">VS Code</div>
+                    <div class="tool-item">BIOS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- КОНТАКТЫ -->
+        <div class="section" id="contacts">
+            <div class="section-header" onclick="toggleSection('contacts')">
+                <h2>📞 Контакты</h2>
+                <span class="section-toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <div class="contacts">
+                    <p>📧 Email: <a href="mailto:vs_prog10@list.ru">vs_prog10@list.ru</a></p>
+                    <p>💻 GitHub: <a href="https://github.com/VS-prog10" target="_blank">@VS-prog10</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="section cta-section open" id="cta">
+            <div class="section-header" onclick="toggleSection('cta')">
+                <h2>📩 Связаться со мной</h2>
+                <span class="section-toggle-icon">▼</span>
+            </div>
+            <div class="section-body">
+                <p>Готов обсудить ваш проект или задачу — от программирования до инженерных расчётов. Напишите мне!</p>
+                <a class="btn" href="mailto:vs_prog10@list.ru">Написать на почту</a>
+            </div>
         </div>
 
         <footer>
@@ -655,7 +786,14 @@
                 localStorage.setItem('theme', 'light');
             }
         }
-        
+
+        function toggleSection(id) {
+            const section = document.getElementById(id);
+            if (section) {
+                section.classList.toggle('open');
+            }
+        }
+
         window.addEventListener('DOMContentLoaded', function() {
             if (localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark');
